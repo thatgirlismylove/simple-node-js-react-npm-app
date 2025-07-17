@@ -17,15 +17,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                script {
-                    if (params.BUILD_ENV == 'development') {
-                        sh 'npm run build:dev'
-                    } else if (params.BUILD_ENV == 'testing') {
-                        sh 'npm run build:test'
-                    } else if (params.BUILD_ENV == 'production') {
-                        sh 'npm run build:prod'
-                    }
-                }
+               sh 'npm run build' 
             }
             
         }
