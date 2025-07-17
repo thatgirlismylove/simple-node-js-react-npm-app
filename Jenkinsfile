@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node:lts-buster-slim'
+            image 'node:lts-alpine3.22'
         }
     }
 
@@ -27,7 +27,6 @@ pipeline {
                     }
                 }
             }
-            
         }
     }
 }
