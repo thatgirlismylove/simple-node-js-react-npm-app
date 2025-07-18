@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'react-frontend-image'
+        CONTAINER_NAME = 'react-frontend-container'
+    }
+
+    stages {
+        stage('拉取代码') {
+            steps {
+                git 'https://github.com/thatgirlismylove/simple-node-js-react-npm-app'
+            }
+        }
+
+        stage('构建镜像') {
+            steps {
+                sh "docker build -t ${IMAGE_NAME} ."
+            }
+        }
+
+        stage('发布') {
+            steps {
+                sh """
+                docker rm -f ${CONTAINER_NAME} || true
+                docker run -d --name ${CONTAINER_NAME} -p 8080:80 ${IMAGE_NAME}
+                """
+            }
+        }
+    }
+}
+
+
